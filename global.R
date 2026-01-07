@@ -27,7 +27,7 @@ tryCatch(
 )
 
 load_data_from_gcs <- function() {
-  tmp <- tempfile(fileext = ".rds")
+  tmp <- tempfile(fileext = ".RDS")
   tryCatch(
     {
       gcs_get_object(
