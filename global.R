@@ -36,12 +36,12 @@ authenticate_gcs <- function() {
 # Function: Load data from GCS
 # -----------------------------
 load_data_from_gcs <- function() {
-  tmp <- tempfile(fileext = ".rds")
+  tmp <- tempfile(fileext = ".RDS")
   tryCatch(
     {
       gcs_get_object(
-        object_name = "data/mydata.rds",  # adjust path in your bucket
-        bucket = "my-shiny-data",         # replace with your bucket
+        object_name = "example_data/mydata.RDS",  # adjust path in your bucket
+        bucket = "shiny-data",         # replace with your bucket
         saveToDisk = tmp,
         overwrite = TRUE
       )
