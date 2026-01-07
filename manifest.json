@@ -176,6 +176,29 @@
         "Archs": "askpass.so.dSYM"
       }
     },
+    "assertthat": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "description": {
+        "Package": "assertthat",
+        "Title": "Easy Pre and Post Assertions",
+        "Version": "0.2.1",
+        "Authors@R": "\n  person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", c(\"aut\", \"cre\"))",
+        "Description": "An extension to stopifnot() that makes it easy to declare \n    the pre and post conditions that you code should satisfy, while also \n    producing friendly error messages so that your users know what's gone\n    wrong.",
+        "License": "GPL-3",
+        "Imports": "tools",
+        "Suggests": "testthat, covr",
+        "RoxygenNote": "6.0.1",
+        "Collate": "'assert-that.r' 'on-failure.r' 'assertions-file.r'\n'assertions-scalar.R' 'assertions.r' 'base.r'\n'base-comparison.r' 'base-is.r' 'base-logical.r' 'base-misc.r'\n'utils.r' 'validate-that.R'",
+        "NeedsCompilation": "no",
+        "Packaged": "2019-03-21 13:11:01 UTC; hadley",
+        "Author": "Hadley Wickham [aut, cre]",
+        "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2019-03-21 14:53:46 UTC",
+        "Built": "R 4.4.0; ; 2024-05-30 06:10:48 UTC; unix"
+      }
+    },
     "backports": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -2113,6 +2136,39 @@
         "Archs": "rappdirs.so.dSYM"
       }
     },
+    "rdrop2": {
+      "Source": "github",
+      "Repository": null,
+      "description": {
+        "Package": "rdrop2",
+        "Title": "Programmatic Interface to the 'Dropbox' API",
+        "Version": "0.8.2.2",
+        "Authors@R": "c(person(\"Karthik\", \"Ram\", email = \"karthik.ram@gmail.com\", role = c(\"aut\", \"cre\")),\n           person(\"Clayton\", \"Yochum\", role = \"aut\"),\n           person(\"Caleb\", \"Scheidel\", role = \"ctb\"),\n           person(\"Akhil\", \"Bhel\", role = \"cph\")\n           )",
+        "Description": "Provides full programmatic access to the 'Dropbox' file hosting platform <https://dropbox.com>, including support for all standard file operations.",
+        "Depends": "R (>= 3.1.1)",
+        "License": "MIT + file LICENSE",
+        "BugReports": "https://github.com/karthik/rdrop2/issues",
+        "Imports": "digest, dplyr, httr, jsonlite, magrittr, purrr, assertthat",
+        "Suggests": "testthat, uuid",
+        "RoxygenNote": "7.2.3",
+        "Encoding": "UTF-8",
+        "RemoteType": "github",
+        "RemoteHost": "api.github.com",
+        "RemoteRepo": "rdrop2",
+        "RemoteUsername": "karthik",
+        "RemoteRef": "HEAD",
+        "RemoteSha": "81bedd2f0fbd0ee55dd163230c1a0b26a80162cc",
+        "GithubRepo": "rdrop2",
+        "GithubUsername": "karthik",
+        "GithubRef": "HEAD",
+        "GithubSHA1": "81bedd2f0fbd0ee55dd163230c1a0b26a80162cc",
+        "NeedsCompilation": "no",
+        "Packaged": "2026-01-03 22:00:28 UTC; balaji",
+        "Author": "Karthik Ram [aut, cre],\n  Clayton Yochum [aut],\n  Caleb Scheidel [ctb],\n  Akhil Bhel [cph]",
+        "Maintainer": "Karthik Ram <karthik.ram@gmail.com>",
+        "Built": "R 4.4.1; ; 2026-01-03 22:00:29 UTC; unix"
+      }
+    },
     "readr": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -3195,7 +3251,7 @@
   },
   "files": {
     "app.R": {
-      "checksum": "a986340e3f6f425f8cb3f6f8f17e34d6"
+      "checksum": "c9d51a2c88285bd4108dcf2cb2b96c56"
     },
     "data/example.csv": {
       "checksum": "77d549fcd355a3e2bd05786a46ec8457"
