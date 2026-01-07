@@ -32,7 +32,7 @@ load_data_from_gcs <- function() {
     {
       gcs_get_object(
         object_name = "example_data/mydata.RDS",
-        bucket = "my-shiny-data",
+        bucket = "shiny-data",
         saveToDisk = tmp,
         overwrite = TRUE
       )
