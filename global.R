@@ -1,6 +1,10 @@
+# global.R
 library(googleCloudStorageR)
 library(jsonlite)
 
+# -----------------------------
+# Function: Authenticate to GCS
+# -----------------------------
 authenticate_gcs <- function() {
   json_env <- Sys.getenv("GCS_SERVICE_ACCOUNT_JSON")
   if (nchar(json_env) == 0) stop("GCS_SERVICE_ACCOUNT_JSON not set!")
@@ -15,7 +19,7 @@ authenticate_gcs <- function() {
     stop("Failed to parse JSON: ", e$message)
   })
   
-  # Authenticate
+  # Authenticate with GCS
   tryCatch({
     gcs_auth(sa)
     message("Authenticated to GCS successfully")
@@ -24,13 +28,26 @@ authenticate_gcs <- function() {
   })
 }
 
+# -----------------------------
+# Function: Load data from GCS
+# -----------------------------
 load_data_from_gcs <- function() {
   tmp <- tempfile(fileext = ".rds")
-  gcs_get_object(
-    object_name = "example_data/mydata.RDS",
-    bucket = "shiny-data",
-    saveToDisk = tmp,
-    overwrite = TRUE
-  )
-  readRDS(tmp)
+  tryCatch({
+    # Optional: list objects for debugging
+    objs <- gcs_list_objects("shiny-data")
+    message("Objects in bucket: ", paste(objs$name, collapse = ", "))
+    
+    # Download object
+    gcs_get_object(
+      object_name = "example_data/mydata.RDS",
+      bucket = "shiny-data",
+      saveToDisk = tmp,
+      overwrite = TRUE
+    )
+    message("Downloaded object successfully")
+    readRDS(tmp)
+  }, error = function(e) {
+    stop("Failed to download or read data from GCS: ", e$message)
+  })
 }
