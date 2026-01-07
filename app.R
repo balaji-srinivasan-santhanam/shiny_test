@@ -1,71 +1,43 @@
+# global.R
+
 library(shiny)
-#install.packages(c(
-#  "googleCloudStorageR",
-#  "jsonlite"
-#))
-library('jsonlite')
-library('googleCloudStorageR')
+library(googleCloudStorageR)
+library(jsonlite)
 
-
-# Read service account JSON from env var
+# ---- Step 1: Read service account JSON from environment variable ----
 gcs_json <- Sys.getenv("GCS_SERVICE_ACCOUNT_JSON")
 
+# ---- Step 2: Check if env var exists ----
 if (gcs_json == "") {
-  stop("GCS_SERVICE_ACCOUNT_JSON not set")
+  stop(
+    "GCS_SERVICE_ACCOUNT_JSON environment variable is not set. ",
+    "Please set it in Posit Connect Cloud App Settings."
+  )
 }
 
-# Authenticate
-gcs_auth(jsonlite::fromJSON(gcs_json))
-
-
-# ------------------------------
-# Shiny UI
-# ------------------------------
-ui <- fluidPage(
-  titlePanel("Dropbox CSV Viewer"),
-  sidebarLayout(
-    sidebarPanel(
-      actionButton("load", "Load CSV from GCS")
-    ),
-    mainPanel(
-      tableOutput("data"),
-      verbatimTextOutput("messages")
-    )
-  )
+# ---- Step 3: Parse JSON safely ----
+# Use tryCatch to catch malformed JSON
+sa <- tryCatch(
+  fromJSON(txt = gcs_json),
+  error = function(e) {
+    stop("Failed to parse GCS_SERVICE_ACCOUNT_JSON: ", e$message)
+  }
 )
 
-load_data <- function() {
+# ---- Step 4: Authenticate to GCS ----
+gcs_auth(sa)
+
+# ---- Step 5: Load data from GCS ----
+load_data_from_gcs <- function() {
   tmp <- tempfile(fileext = ".rds")
-  
   gcs_get_object(
-    object_name = "example_data/mydata.RDS",
-    bucket = "shiny-data",
+    object_name = "data/mydata.rds",
+    bucket = "my-shiny-data",
     saveToDisk = tmp,
     overwrite = TRUE
   )
-  
   readRDS(tmp)
 }
 
+# ---- Step 6: Cache in memory to avoid repeated downloads ----
 DATA <- load_data_from_gcs()
-# app.R
-
-library(shiny)
-library(ggplot2)
-
-ui <- fluidPage(
-  titlePanel("Shiny App Reading from GCS"),
-  plotOutput("scatter")
-)
-
-server <- function(input, output, session) {
-  
-  output$scatter <- renderPlot({
-    ggplot(DATA, aes(x, y)) +
-      geom_point() +
-      theme_minimal()
-  })
-  
-}
-
-shinyApp(ui, server)
