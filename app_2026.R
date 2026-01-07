@@ -14,7 +14,7 @@ server <- function(input, output, session) {
     tmp <- tempfile(fileext = ".csv")
     tryCatch({
       drop_download(
-        path = "Apps/shiny_test/data/example.csv",
+        path = "Apps/icamp_test/data/example.csv",
         local_path = tmp,
         overwrite = TRUE
       )
