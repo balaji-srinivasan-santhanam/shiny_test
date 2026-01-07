@@ -1,59 +1,27 @@
 library(shiny)
 library(rdrop2)
 
-# Function to get Dropbox token from environment variable
-get_dropbox_token <- function() {
-  structure(list(access_token = Sys.getenv("DROPBOX_TOKEN")),
-            class = "DropboxToken")
-}
-
 ui <- fluidPage(
   titlePanel("Dropbox CSV Viewer"),
-  sidebarLayout(
-    sidebarPanel(
-      actionButton("load", "Load CSV from Dropbox")
-    ),
-    mainPanel(
-      tableOutput("data"),
-      verbatimTextOutput("messages")
-    )
-  )
+  tableOutput("data")
 )
 
 server <- function(input, output, session) {
-  token <- get_dropbox_token()
-  
-  # Reactive values to store data or messages
-  rv <- reactiveValues(
-    df = NULL,
-    msg = NULL
-  )
-  
-  observeEvent(input$load, {
-    tmp <- tempfile(fileext = ".csv")
-    
-    # Safe download with error handling
-    tryCatch({
-      drop_download(
-        path = "data/example.csv",
-        local_path = tmp,
-        dtoken = token,
-        overwrite = TRUE
-      )
-      rv$df <- read.csv(tmp)
-      rv$msg <- "CSV loaded successfully!"
-    }, error = function(e) {
-      rv$df <- NULL
-      rv$msg <- paste("Error downloading CSV:", e$message)
-    })
-  })
+  # Authenticate once per session
+  drop_auth(rdstoken = Sys.getenv("DROPBOX_TOKEN"))
   
   output$data <- renderTable({
-    rv$df
-  })
-  
-  output$messages <- renderText({
-    rv$msg
+    tmp <- tempfile(fileext = ".csv")
+    tryCatch({
+      drop_download(
+        path = "Apps/shiny_test/data/example.csv",
+        local_path = tmp,
+        overwrite = TRUE
+      )
+      read.csv(tmp)
+    }, error = function(e) {
+      data.frame(Error = e$message)
+    })
   })
 }
 
