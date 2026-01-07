@@ -1,19 +1,21 @@
-# global.R
 library(googleCloudStorageR)
 library(jsonlite)
 
 authenticate_gcs <- function() {
-  gcs_json <- Sys.getenv("GCS_SERVICE_ACCOUNT_JSON")
+  json_env <- Sys.getenv("GCS_SERVICE_ACCOUNT_JSON")
+  if (nchar(json_env) == 0) stop("GCS_SERVICE_ACCOUNT_JSON not set!")
   
-  if (nchar(gcs_json) == 0) stop("GCS_SERVICE_ACCOUNT_JSON not set!")
+  # Convert escaped \n back to actual newlines
+  json_text <- gsub("\\\\n", "\n", json_env)
   
-  # Use readChar trick to handle multiline private_key
+  # Parse JSON
   sa <- tryCatch({
-    jsonlite::fromJSON(gcs_json)
+    fromJSON(json_text)
   }, error = function(e) {
-    stop("Failed to parse GCS_SERVICE_ACCOUNT_JSON: ", e$message)
+    stop("Failed to parse JSON: ", e$message)
   })
   
+  # Authenticate
   tryCatch({
     gcs_auth(sa)
     message("Authenticated to GCS successfully")
@@ -22,7 +24,6 @@ authenticate_gcs <- function() {
   })
 }
 
-# Function to load data
 load_data_from_gcs <- function() {
   tmp <- tempfile(fileext = ".rds")
   gcs_get_object(
