@@ -31,7 +31,7 @@ load_data_from_gcs <- function() {
   tryCatch(
     {
       gcs_get_object(
-        object_name = "data/mydata.rds",
+        object_name = "example_data/mydata.RDS",
         bucket = "my-shiny-data",
         saveToDisk = tmp,
         overwrite = TRUE
