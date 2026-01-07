@@ -14,7 +14,7 @@ authenticate_gcs <- function() {
   
   # Parse JSON
   sa <- tryCatch({
-    fromJSON(json_text)
+    gcs_auth(json_text)
   }, error = function(e) {
     stop("Failed to parse JSON: ", e$message)
   })
