@@ -1,17 +1,31 @@
 library(shiny)
-library(rdrop2)
+#install.packages(c(
+#  "googleCloudStorageR",
+#  "jsonlite"
+#))
+library('jsonlite')
+library('googleCloudStorageR')
 
-# Function to get Dropbox token from environment variable
-get_dropbox_token <- function() {
-  structure(list(access_token = Sys.getenv("DROPBOX_TOKEN")),
-            class = "DropboxToken")
+
+# Read service account JSON from env var
+gcs_json <- Sys.getenv("GCS_SERVICE_ACCOUNT_JSON")
+
+if (gcs_json == "") {
+  stop("GCS_SERVICE_ACCOUNT_JSON not set")
 }
 
+# Authenticate
+gcs_auth(jsonlite::fromJSON(gcs_json))
+
+
+# ------------------------------
+# Shiny UI
+# ------------------------------
 ui <- fluidPage(
   titlePanel("Dropbox CSV Viewer"),
   sidebarLayout(
     sidebarPanel(
-      actionButton("load", "Load CSV from Dropbox")
+      actionButton("load", "Load CSV from GCS")
     ),
     mainPanel(
       tableOutput("data"),
@@ -20,41 +34,38 @@ ui <- fluidPage(
   )
 )
 
-server <- function(input, output, session) {
-  token <- get_dropbox_token()
+load_data <- function() {
+  tmp <- tempfile(fileext = ".rds")
   
-  # Reactive values to store data or messages
-  rv <- reactiveValues(
-    df = NULL,
-    msg = NULL
+  gcs_get_object(
+    object_name = "example_data/mydata.RDS",
+    bucket = "shiny-data",
+    saveToDisk = tmp,
+    overwrite = TRUE
   )
   
-  observeEvent(input$load, {
-    tmp <- tempfile(fileext = ".csv")
-    
-    # Safe download with error handling
-    tryCatch({
-      drop_download(
-        path = "data/example.csv",
-        local_path = tmp,
-        dtoken = token,
-        overwrite = TRUE
-      )
-      rv$df <- read.csv(tmp)
-      rv$msg <- "CSV loaded successfully!"
-    }, error = function(e) {
-      rv$df <- NULL
-      rv$msg <- paste("Error downloading CSV:", e$message)
-    })
+  readRDS(tmp)
+}
+
+DATA <- load_data_from_gcs()
+# app.R
+
+library(shiny)
+library(ggplot2)
+
+ui <- fluidPage(
+  titlePanel("Shiny App Reading from GCS"),
+  plotOutput("scatter")
+)
+
+server <- function(input, output, session) {
+  
+  output$scatter <- renderPlot({
+    ggplot(DATA, aes(x, y)) +
+      geom_point() +
+      theme_minimal()
   })
   
-  output$data <- renderTable({
-    rv$df
-  })
-  
-  output$messages <- renderText({
-    rv$msg
-  })
 }
 
 shinyApp(ui, server)
