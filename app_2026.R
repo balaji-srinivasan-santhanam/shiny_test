@@ -1,17 +1,22 @@
 library(shiny)
-library(rdrop2)
+#install.packages(c(
+#  "googleCloudStorageR",
+#  "jsonlite"
+#))
+library('jsonlite')
+library('googleCloudStorageR')
 
-# ------------------------------
-# Function to authenticate with Dropbox
-# ------------------------------
-get_dropbox_auth <- function() {
-  # Read token from environment variable
-  token <- Sys.getenv("DROPBOX_TOKEN")
-  if (token == "") stop("Dropbox token not set in environment variables")
-  
-  # Authenticate rdrop2 session with long-lived token
-  drop_auth(rdstoken = token)
+
+# Read service account JSON from env var
+gcs_json <- Sys.getenv("GCS_SERVICE_ACCOUNT_JSON")
+
+if (gcs_json == "") {
+  stop("GCS_SERVICE_ACCOUNT_JSON not set")
 }
+
+# Authenticate
+gcs_auth(jsonlite::fromJSON(gcs_json))
+
 
 # ------------------------------
 # Shiny UI
@@ -20,7 +25,7 @@ ui <- fluidPage(
   titlePanel("Dropbox CSV Viewer"),
   sidebarLayout(
     sidebarPanel(
-      actionButton("load", "Load CSV from Dropbox")
+      actionButton("load", "Load CSV from GCS")
     ),
     mainPanel(
       tableOutput("data"),
@@ -29,48 +34,38 @@ ui <- fluidPage(
   )
 )
 
-# ------------------------------
-# Shiny Server
-# ------------------------------
-server <- function(input, output, session) {
+load_data <- function() {
+  tmp <- tempfile(fileext = ".rds")
   
-  # Reactive values for data and messages
-  rv <- reactiveValues(df = NULL, msg = NULL)
+  gcs_get_object(
+    object_name = "example_data/mydata.RDS",
+    bucket = "shiny-data",
+    saveToDisk = tmp,
+    overwrite = TRUE
+  )
   
-  observeEvent(input$load, {
-    
-    # Authenticate Dropbox (once per session)
-    tryCatch({
-      get_dropbox_auth()
-    }, error = function(e) {
-      rv$df <- NULL
-      rv$msg <- paste("Dropbox authentication failed:", e$message)
-      return()
-    })
-    
-    tmp <- tempfile(fileext = ".csv")
-    
-    # Attempt to download CSV safely
-    tryCatch({
-      drop_download(
-        path = "Apps/icamp_test/data/example.csv",
-        local_path = tmp,
-        overwrite = TRUE
-      )
-      rv$df <- read.csv(tmp)
-      rv$msg <- "CSV loaded successfully!"
-    }, error = function(e) {
-      rv$df <- NULL
-      rv$msg <- paste("Error downloading CSV:", e$message)
-    })
-  })
-  
-  # Render outputs
-  output$data <- renderTable({ rv$df })
-  output$messages <- renderText({ rv$msg })
+  readRDS(tmp)
 }
 
-# ------------------------------
-# Launch Shiny App
-# ------------------------------
+DATA <- load_data_from_gcs()
+# app.R
+
+library(shiny)
+library(ggplot2)
+
+ui <- fluidPage(
+  titlePanel("Shiny App Reading from GCS"),
+  plotOutput("scatter")
+)
+
+server <- function(input, output, session) {
+  
+  output$scatter <- renderPlot({
+    ggplot(DATA, aes(x, y)) +
+      geom_point() +
+      theme_minimal()
+  })
+  
+}
+
 shinyApp(ui, server)
