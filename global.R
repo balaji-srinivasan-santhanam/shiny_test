@@ -2,31 +2,26 @@ library(googleCloudStorageR)
 library(base64enc)
 
 authenticate_gcs <- function() {
-  # 1. Get the encoded string from Posit Connect Cloud environment variables
   encoded_key <- Sys.getenv("GCS_AUTH_BASE64")
   
   if (encoded_key == "") {
     stop("Environment variable GCS_AUTH_BASE64 is not set.")
   }
   
-  # 2. Decode the string and write to a temporary file
-  # This file only exists while the app instance is running
+  # Create the temp file
   tmp_key_file <- tempfile(fileext = ".json")
   
-  tryCatch({
-    decoded_bytes <- base64decode(encoded_key)
-    writeBin(decoded_bytes, tmp_key_file)
-  }, error = function(e) {
-    stop("Failed to decode Base64 string. Ensure the secret is copied correctly.")
-  })
+  decoded_bytes <- base64decode(encoded_key)
+  writeBin(decoded_bytes, tmp_key_file)
   
-  # 3. Point Google to the temporary file
-  Sys.setenv(GOOGLE_APPLICATION_CREDENTIALS = normalizePath(tmp_key_file))
+  # CRITICAL CHANGE: 
+  # Instead of just setting the Sys.setenv, pass the path directly to gcs_auth()
+  googleCloudStorageR::gcs_auth(json_file = tmp_key_file)
   
-  # 4. Authenticate
-  gcs_auth() 
+  message("Authenticated to GCS successfully using Service Account")
   
-  message("Authenticated to GCS successfully using decoded Base64 key")
+  # Optional: check which service account is active in the logs
+  # message("Active service account: ", googleCloudStorageR::gcs_get_service_email())
 }
 
 load_data_from_gcs <- function() {
@@ -44,3 +39,7 @@ load_data_from_gcs <- function() {
   
   readRDS(tmp_rds)
 }
+
+
+authenticate_gcs()
+my_data <- load_data_from_gcs()
