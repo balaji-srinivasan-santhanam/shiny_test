@@ -2,6 +2,9 @@
 library(shiny)
 library(ggplot2)
 
+source("global.R", local = TRUE)
+
+
 ui <- fluidPage(
   titlePanel("Shiny App Reading from GCS"),
   plotOutput("scatter")
