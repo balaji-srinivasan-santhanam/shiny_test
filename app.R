@@ -11,7 +11,7 @@ server <- function(input, output, session) {
   
   DATA <- reactiveVal(NULL)
   
-  # Authenticate and load data once at startup
+  # Authenticate and load data at startup
   observe({
     tryCatch({
       authenticate_gcs()
@@ -27,9 +27,11 @@ server <- function(input, output, session) {
     df <- DATA()
     if (is.null(df)) {
       plot.new()
-      text(0.5, 0.5,
-           "DATA not available. Check environment variable or permissions.",
-           cex = 1.2)
+      text(
+        0.5, 0.5,
+        "DATA not available. Check environment variable or permissions.",
+        cex = 1.2
+      )
     } else {
       ggplot(df, aes(x, y)) +
         geom_point() +
