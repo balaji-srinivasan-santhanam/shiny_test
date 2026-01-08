@@ -1450,10 +1450,10 @@
   },
   "files": {
     "app_2026.R": {
-      "checksum": "cb42a5b9b14845a350409c90223d97e7"
+      "checksum": "5ec8db8e72b4004a396f2eef9289c999"
     },
     "app.R": {
-      "checksum": "cb42a5b9b14845a350409c90223d97e7"
+      "checksum": "5ec8db8e72b4004a396f2eef9289c999"
     },
     "data/example.csv": {
       "checksum": "77d549fcd355a3e2bd05786a46ec8457"
@@ -1472,6 +1472,9 @@
     },
     "example_data/mydata.RDS": {
       "checksum": "4a7c4c6a7996a7f72aca90d5b3665eaa"
+    },
+    "global.R": {
+      "checksum": "a30c39f9e6e8d215030a2c4ba05e1a3f"
     }
   },
   "users": null

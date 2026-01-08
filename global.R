@@ -1,23 +1,23 @@
 # global.R
 library(googleCloudStorageR)
+library(base64enc)
 
-authenticate_gcs <- function() {
-  json_text <- Sys.getenv("GCS_SERVICE_ACCOUNT_JSON")
-  if (nchar(json_text) == 0) {
-    stop("GCS_SERVICE_ACCOUNT_JSON not set")
-  }
+
+auth_env <- Sys.getenv("GCS_AUTH_BASE64")
+
+if (auth_env != "") {
+  # 1. Decode the Base64 string back to raw bytes
+  decoded_bytes <- base64decode(auth_env)
   
-  # Write JSON exactly as-is to a temp file
-  key_file <- tempfile(fileext = ".json")
-  writeLines(json_text, key_file, useBytes = TRUE)
+  # 2. Write bytes to a temporary file
+  tmp_json <- tempfile(fileext = ".json")
+  writeBin(decoded_bytes, tmp_json)
   
-  # Authenticate using FILE (this is the critical fix)
-  tryCatch({
-    gcs_auth(key_file)
-    message("Authenticated to GCS successfully")
-  }, error = function(e) {
-    stop("GCS authentication failed: ", e$message)
-  })
+  # 3. Authenticate using the temp file
+  gcs_auth(json_file = tmp_json)
+  
+  # Clean up the temp file after auth
+  on.exit(unlink(tmp_json), add = TRUE)
 }
 
 load_data_from_gcs <- function() {
