@@ -690,28 +690,6 @@
         "Archs": "ModelMetrics.so.dSYM"
       }
     },
-    "NbClust": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "NbClust",
-        "Type": "Package",
-        "Title": "Determining the Best Number of Clusters in a Data Set",
-        "Version": "3.0.1",
-        "Depends": "R (>= 3.1.0)",
-        "Date": "2015-04-13",
-        "Author": "Malika Charrad and Nadia Ghazzali and Veronique Boiteau and Azam Niknafs  ",
-        "Maintainer": "Malika Charrad <malika.charrad.1@ulaval.ca>",
-        "Description": "It provides 30 indexes for determining the optimal number of clusters in a data set and offers the best clustering scheme from different results to the user. ",
-        "URL": "https://sites.google.com/site/malikacharrad/research/nbclust-package",
-        "License": "GPL-2",
-        "Packaged": "2022-05-02 10:08:05 UTC; hornik",
-        "NeedsCompilation": "no",
-        "Repository": "CRAN",
-        "Date/Publication": "2022-05-02 13:01:42 UTC",
-        "Built": "R 4.4.0; ; 2024-05-30 10:25:06 UTC; unix"
-      }
-    },
     "R.methodsS3": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -1208,35 +1186,6 @@
         "Repository": "CRAN",
         "Date/Publication": "2024-09-12 17:40:54 UTC",
         "Built": "R 4.4.1; ; 2024-09-12 20:47:24 UTC; unix"
-      }
-    },
-    "apcluster": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "apcluster",
-        "Type": "Package",
-        "Title": "Affinity Propagation Clustering",
-        "Version": "1.4.13",
-        "Date": "2024-04-26",
-        "Depends": "R (>= 3.3.0)",
-        "Imports": "Rcpp (>= 0.11.1), methods, Matrix, stats, graphics, grDevices",
-        "Suggests": "knitr",
-        "Author": "Ulrich Bodenhofer [aut, cre],\n        Johannes Palme [ctb],\n\tChrats Melkonian [ctb],\n\tAndreas Kothmeier [aut],\n\tNikola Kostic [ctb]",
-        "Maintainer": "Ulrich Bodenhofer <ulrich@bodenhofer.com>",
-        "Description": "Implements Affinity Propagation clustering introduced by Frey and\n\tDueck (2007) <DOI:10.1126/science.1136800>. The algorithms are largely\n        analogous to the 'Matlab' code published by Frey and Dueck.\n        The package further provides leveraged affinity propagation and an\n        algorithm for exemplar-based agglomerative clustering that can also be\n        used to join clusters obtained from affinity propagation. Various\n        plotting functions are available for analyzing clustering results.",
-        "License": "GPL (>= 2)",
-        "Collate": "AllClasses.R AllGenerics.R access-methods.R coerce-methods.R\nshow-methods.R labels-methods.R length-methods.R revDend.R\nheatmap-methods.R plot-methods.R cutree-methods.R\nsort-methods.R aggExCluster-methods.R apcluster-methods.R\napclusterL-methods.R apclusterK-methods.R apclusterDemo.R\npreferenceRange-methods.R similarity.R simpleDist.R\nconversions.R",
-        "URL": "https://github.com/UBod/apcluster",
-        "VignetteBuilder": "knitr",
-        "LinkingTo": "Rcpp",
-        "LazyLoad": "yes",
-        "Repository": "CRAN",
-        "NeedsCompilation": "yes",
-        "Packaged": "2024-04-26 10:24:50 UTC; ulrich",
-        "Date/Publication": "2024-04-26 12:20:02 UTC",
-        "Built": "R 4.4.0; x86_64-apple-darwin20; 2024-05-30 23:50:20 UTC; unix",
-        "Archs": "apcluster.so.dSYM"
       }
     },
     "ape": {
@@ -7219,7 +7168,7 @@
       "checksum": "fd39a2b476fdef26188bfaa91519d16b"
     },
     "global.R": {
-      "checksum": "8476a4cfe55694827e3be07b76283bf0"
+      "checksum": "2dbabaebc66c100eaf80cc200b004f96"
     }
   },
   "users": null
