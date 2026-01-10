@@ -4986,33 +4986,6 @@
         "Built": "R 4.4.0; ; 2024-05-31 13:08:26 UTC; unix"
       }
     },
-    "tidytree": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "tidytree",
-        "Title": "A Tidy Tool for Phylogenetic Tree Data Manipulation",
-        "Version": "0.4.7",
-        "Authors@R": "c(\n           person(\"Guangchuang\", \"Yu\",   email = \"guangchuangyu@gmail.com\", role = c(\"aut\", \"cre\", \"cph\"), comment = c(ORCID = \"0000-0002-6485-8781\")),\n           person(\"Bradley\", \"Jones\",    email = \"brj1@sfu.ca\",             role = \"ctb\"),\n           person(\"Zebulun\", \"Arendsee\", email = \"zbwrnz@gmail.com\",        role = \"ctb\")\n           )",
-        "Description": "Phylogenetic tree generally contains multiple components including node, edge, branch and associated data. 'tidytree' provides an approach to convert tree object to tidy data frame as well as provides tidy interfaces to manipulate tree data.",
-        "Depends": "R (>= 3.4.0)",
-        "Imports": "ape, dplyr, lazyeval, magrittr, methods, rlang, tibble, tidyr,\ntidyselect, yulab.utils (>= 0.1.5), pillar, cli",
-        "Suggests": "testthat, utils",
-        "ByteCompile": "true",
-        "License": "Artistic-2.0",
-        "URL": "https://yulab-smu.top/contribution-tree-data/",
-        "BugReports": "https://github.com/YuLab-SMU/tidytree/issues",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.3",
-        "NeedsCompilation": "no",
-        "Packaged": "2026-01-08 05:00:03 UTC; HUAWEI",
-        "Author": "Guangchuang Yu [aut, cre, cph] (ORCID:\n    <https://orcid.org/0000-0002-6485-8781>),\n  Bradley Jones [ctb],\n  Zebulun Arendsee [ctb]",
-        "Maintainer": "Guangchuang Yu <guangchuangyu@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-01-08 08:40:02 UTC",
-        "Built": "R 4.4.1; ; 2026-01-08 10:46:26 UTC; unix"
-      }
-    },
     "timeDate": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -5036,39 +5009,6 @@
         "Repository": "CRAN",
         "Date/Publication": "2025-10-17 11:50:02 UTC",
         "Built": "R 4.4.1; ; 2025-10-17 14:02:11 UTC; unix"
-      }
-    },
-    "treeio": {
-      "Source": "Bioconductor",
-      "Repository": "https://bioconductor.org/packages/3.20/bioc",
-      "description": {
-        "Package": "treeio",
-        "Title": "Base Classes and Functions for Phylogenetic Tree Input and\nOutput",
-        "Version": "1.30.0",
-        "Authors@R": "c(\n    person(\"Guangchuang\", \"Yu\",     email = \"guangchuangyu@gmail.com\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-6485-8781\")),\n    person(\"Tommy Tsan-Yuk\", \"Lam\", email = \"tylam.tommy@gmail.com\",   role = c(\"ctb\", \"ths\")),\n    person(\"Shuangbin\", \"Xu\",       email = \"xshuangbin@163.com\",      role = \"ctb\",           comment = c(ORCID=\"0000-0003-3513-5362\")),\n    person(\"Bradley\", \"Jones\",      email = \"brj1@sfu.ca\",             role = \"ctb\"),\n    person(\"Casey\", \"Dunn\",         email = \"casey_dunn@brown.edu\",    role = \"ctb\"),\n    person(\"Tyler\", \"Bradley\",      email = \"tcb85@drexel.edu\",        role = \"ctb\"),\n    person(\"Konstantinos\", \"Geles\", email = \"konstantinos.geles@studenti.unicz.it\", role = \"ctb\")\n\t  )",
-        "Description": "'treeio' is an R package to make it easier to import and store phylogenetic tree with associated data; and to link external data from different sources to phylogeny. It also supports exporting phylogenetic tree with heterogeneous associated data to a single tree file and can be served as a platform for merging tree with associated data and converting file formats.",
-        "Depends": "R (>= 3.6.0)",
-        "Imports": "ape, dplyr, jsonlite, magrittr, methods, rlang, stats, tibble,\ntidytree (>= 0.4.5), utils, yulab.utils (>= 0.1.6)",
-        "Suggests": "Biostrings, cli, ggplot2, ggtree, igraph, knitr, rmarkdown,\nphangorn, prettydoc, purrr, testthat, tidyr, vroom, xml2, yaml",
-        "VignetteBuilder": "knitr",
-        "ByteCompile": "true",
-        "License": "Artistic-2.0",
-        "Encoding": "UTF-8",
-        "URL": "https://yulab-smu.top/contribution-tree-data/",
-        "BugReports": "https://github.com/YuLab-SMU/treeio/issues",
-        "biocViews": "Software, Annotation, Clustering, DataImport,\nDataRepresentation, Alignment, MultipleSequenceAlignment,\nPhylogenetics",
-        "RoxygenNote": "7.3.2",
-        "git_url": "https://git.bioconductor.org/packages/treeio",
-        "git_branch": "RELEASE_3_20",
-        "git_last_commit": "c824ca4",
-        "git_last_commit_date": "2024-10-29",
-        "Repository": "Bioconductor 3.20",
-        "Date/Publication": "2024-10-29",
-        "NeedsCompilation": "no",
-        "Packaged": "2024-10-30 02:00:59 UTC; biocbuild",
-        "Author": "Guangchuang Yu [aut, cre] (<https://orcid.org/0000-0002-6485-8781>),\n  Tommy Tsan-Yuk Lam [ctb, ths],\n  Shuangbin Xu [ctb] (<https://orcid.org/0000-0003-3513-5362>),\n  Bradley Jones [ctb],\n  Casey Dunn [ctb],\n  Tyler Bradley [ctb],\n  Konstantinos Geles [ctb]",
-        "Maintainer": "Guangchuang Yu <guangchuangyu@gmail.com>",
-        "Built": "R 4.4.1; ; 2024-10-30 11:42:09 UTC; unix"
       }
     },
     "tseries": {
