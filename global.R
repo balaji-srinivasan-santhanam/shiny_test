@@ -1,5 +1,52 @@
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+# This forces the environment to recognize Bioconductor repositories
+options(repos = BiocManager::repositories())
+
+
 library(googleCloudStorageR)
 library(base64enc)
+
+library(clusterProfiler)
+#Slibrary(enrichplot)
+
+library('shiny')
+library('ggplot2') ; library('ggfortify')
+library('grid') ; library('gridExtra')
+library('survminer')
+
+library('foreach')
+library('doMC')
+#library('NbClust')
+#library('infotheo')
+library('caret')
+library('ggplot2')
+library('reshape')
+library('ggfortify') ; library('survminer')
+library('plotrix')
+library('gridExtra')
+library('ggExtra')
+library('grid')
+library('tsne')
+library('Rtsne')
+library('gplots')
+library("RColorBrewer")
+library('viridis')
+#library('heatmaply')
+#library('dendextend')
+#library('NbClust')
+#library('cluster')
+
+#library('factoextra')
+
+#library('apcluster')
+library('data.table')
+library('vroom')
+#library('RVAideMemoire')
+organism = "org.Hs.eg.db"
+#BiocManager::install(organism, character.only = TRUE)
+library(organism, character.only = TRUE)
 
 authenticate_gcs <- function() {
   encoded_key <- Sys.getenv("GCS_AUTH_BASE64")
