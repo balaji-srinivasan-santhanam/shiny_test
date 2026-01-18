@@ -1,8 +1,8 @@
 
 
-#if (!require("BiocManager", quietly = TRUE))
-#install.packages("BiocManager")
-#options(repos = BiocManager::repositories())
+if (!require("BiocManager", quietly = TRUE))
+install.packages("BiocManager")
+options(repos = BiocManager::repositories())
 library('shiny')
 library('ggplot2')
 library('ggfortify')
