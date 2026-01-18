@@ -335,8 +335,9 @@ ui <- fluidPage(
                       c("pancreatic", "AML", "bladder", "breast", "cervical", "colon", "esophageal", "GBM",
                         "glioma", "head_neck", "kidney_cc", "kidney_ch", "kidney_pa",
                         "liver", "lung_ad", "lung_sq",
-                        "melanoma", "ovarian", "pancreatic", "paraganglioma", "prostate",
+                        "melanoma", "ovarian", "paraganglioma", "prostate",
                         "rectal", "sarcoma", "stomach", "testicular", "thymoma", "thyroid","uterine_endometrial"),
+                      selected = 'liver'
                       ),
                        
             selectInput("specify_module", "explore modules",
