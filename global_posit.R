@@ -23,12 +23,23 @@ library('dplyr')
 # --- GCS AUTHENTICATION HELPER ---
 authenticate_gcs <- function() {
   encoded_key <- Sys.getenv("GCS_AUTH_BASE64")
-  if (encoded_key == "") stop("Environment variable GCS_AUTH_BASE64 not set.")
+  if (nchar(encoded_key) < 10) stop("CRITICAL: GCS_AUTH_BASE64 is missing or too short!")
   
   tmp_key <- tempfile(fileext = ".json")
-  writeBin(base64decode(encoded_key), tmp_key)
-  gcs_auth(json_file = tmp_key)
+  writeBin(base64enc::base64decode(encoded_key), tmp_key)
+  
+  # This line is the game-changer:
+  googleCloudStorageR::gcs_auth(json_file = tmp_key)
 }
+
+# authenticate_gcs <- function() {
+#   encoded_key <- Sys.getenv("GCS_AUTH_BASE64")
+#   if (encoded_key == "") stop("Environment variable GCS_AUTH_BASE64 not set.")
+  
+#   tmp_key <- tempfile(fileext = ".json")
+#   writeBin(base64decode(encoded_key), tmp_key)
+#   gcs_auth(json_file = tmp_key)
+# }
 gcs_global_bucket("shiny-data")
 authenticate_gcs()
 
