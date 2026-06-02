@@ -491,7 +491,7 @@ server <- function(input, output, session) {
     clinDataInput <- reactive({
       if (input$specify_module == "existing") { req(input$rbp_select) ; clin_inp_ = label_clinicalData(existing_module_data()) }
       if (input$specify_module == "new") { clin_inp_ = label_clinicalData(new_module_data()) }
-      num_pat  = input$num_pat
+      num_pat  = as.numeric(input$num_pat)
       clin_inp = NULL
       if (! is.null(clin_inp_)) {
         pat_p = clin_inp_[[1]] ; pat_n = clin_inp_[[2]]
