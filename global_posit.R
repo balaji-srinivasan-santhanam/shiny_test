@@ -50,6 +50,7 @@ get_gcs_rds <- function(path) {
 }
 
 module_rbps <- get_gcs_rds("data/module_rbps_slim.RDS")
-common_genes <- get_gcs_rds("data/common_genes_quant_0.1")
+#common_genes <- get_gcs_rds("data/common_genes_quant_0.1")
+common_genes <- get_gcs_rds("data/common_TCGA_genes_rds")
 
 
